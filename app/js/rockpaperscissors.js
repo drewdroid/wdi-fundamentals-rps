@@ -40,43 +40,49 @@ function getWinner(playerMove,computerMove) {
     // Write code that will set winner to either 'player', 'computer', or 'tie' based on the values of playerMove and computerMove.
     // Assume that the only values playerMove and computerMove can have are 'rock', 'paper', and 'scissors'.
     // The rules of the game are that 'rock' beats 'scissors', 'scissors' beats 'paper', and 'paper' beats 'rock'.
-    /* YOUR CODE HERE */
-     
+
+    // Wasn't sure about how the invalid move option would work, or if we were even supposed to attempt it.
+
     if (playerMove === computerMove) {
-        winner ='tie';
+       winner ='tie';
     } else if   
         ( (playerMove === 'rock' && computerMove === 'scissors') || (playerMove === 'paper' && computerMove === 'rock') || (playerMove === 'scissors' && computerMove === 'paper') ) {
             winner ='player';
     } else if ( (playerMove === 'rock' && computerMove === 'paper') || (playerMove === 'paper' && computerMove === 'scissors') || (playerMove === 'scissors' && computerMove === 'rock') ){
         winner='computer';
-    } else console.log('invalid move');
+    } else {
+        console.log('That\'s an invalid move!');
+    }
     return winner;
 }
 
-function playToX() {
+function playToX(maxWins) {
     console.log("Let's play Rock, Paper, Scissors");
     var playerWins = 0;
     var computerWins = 0;
-    // Write code that plays 'Rock, Paper, Scissors' until either the player or the computer has won five times.
+    // |GA|  Write code that plays 'Rock, Paper, Scissors' until either the player or the computer has won five times.
     
-    // Change "maxWins" variable to however many wins we want (computer or player) before the match stops
-     var maxWins = 5;
+    // Declares "maxWins" variable
+     var maxWins;
 
      // Declares variable "winner", & initializes the round number (numOfRound to zero
      var winner;
      var numOfRound = 0;
 
-     // Start the loop, why are we using AND&& instead of OR||, because we want the statement in the while loop to register as false (knocking us out of the loop), when player or computer reaches maxWins => whichever comes first. http://bit.ly/1MyW3gf
+     // Starts the loop, why did we use AND&& instead of OR||, because we want the statement in the while loop to register as false (knocking us out of the loop), when player or computer reaches maxWins => whichever comes first. http://bit.ly/1MyW3gf.
+     
     while ( (playerWins < maxWins) && (computerWins < maxWins) ) {
+        
+        // increments round number for each loop
         numOfRound+=1;
         
-        //Display the moves
+        // Assigns and displays the moves
         var playerMove = getPlayerMove();
         var computerMove = getComputerMove();
-        console.log('Player has chosen ' + playerMove)
+        console.log('Player has chosen ' + playerMove);
         console.log('Computer has chosen ' + computerMove + '....');
 
-        // Pick and dispay winner for current round, calls the getWinner function
+        // Picks and displays winner for current round, calling the getWinner function in order to pick the winner. This last `else` seems extraneous though.
         winner = getWinner(playerMove,computerMove);
         if (winner==='player') {
             playerWins +=1;
@@ -85,11 +91,11 @@ function playToX() {
         } else {
             playerWins +=0;
         }
-        console.log('The winner of round ' + numOfRound + ' is the ' + winner);
+        console.log('The winner of round ' + numOfRound + ' is ' + winner);
         console.log('The current score is ' + 'player: ' + playerWins + '; computer: ' + computerWins + '\n');
     }
 
-        // display match winner
+        // displays match winner:  uses ternary operator to pick matchWinner
     var matchWinner = (playerWins > computerWins) ? 'player' : 'computer';
     
     console.log('The winner of the match is the ' + matchWinner + ' in ' + numOfRound + ' rounds. \n Wasn\'t that fun\?');
@@ -97,4 +103,4 @@ function playToX() {
     
 }
 
-playToX();
+playToX(5);
